@@ -33,7 +33,7 @@ public class Compra {
 	@ManyToMany
     @JoinTable(	joinColumns = @JoinColumn(name = "id_compras"), 
     			inverseJoinColumns = @JoinColumn(name = "id_produtos"), 
-    			name = "itensCompra")
+    			name = "PRODUTO_COMPRA")
 	private List<Produto> produtosCompra;
 	
 	
@@ -120,6 +120,22 @@ public class Compra {
 	public void setDataCompra(Calendar dataCompra) {
 		this.dataCompra = dataCompra;
 	}
+
+
+	public Compra() {}
+	
+	public Compra(int id, List<Produto> produtosCompra, double valorTotal, String formaDepagamento, Calendar dataCompra,
+			Fornecedor fornecedores) {
+		super();
+		this.id = id;
+		this.produtosCompra = produtosCompra;
+		this.valorTotal = valorTotal;
+		this.formaDepagamento = formaDepagamento;
+		this.dataCompra = dataCompra;
+		this.fornecedores = fornecedores;
+	}
+	
+	
 	
 
 	

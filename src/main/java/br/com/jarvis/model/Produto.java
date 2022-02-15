@@ -24,6 +24,10 @@ public class Produto {
 	@Column(name="nome_produto")
 	private String nome;
 	
+	@Column(name="preco_produto")
+	private double preco;
+	
+	
 	@Column(name="estoque_produto")
 	private int estoque;
 	
@@ -89,6 +93,21 @@ public class Produto {
 	public void setCompras(List<Compra> compras) {
 		this.compras = compras;
 	}
+
+	
+	public Produto() {}
+	
+	public Produto(int id, String nome, double preco, int estoque, List<Venda> vendas, List<Compra> compras) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.preco = preco;
+		this.estoque = estoque;
+		this.vendas = vendas;
+		this.compras = compras;
+	}
+	
+	
 	
 	
 	

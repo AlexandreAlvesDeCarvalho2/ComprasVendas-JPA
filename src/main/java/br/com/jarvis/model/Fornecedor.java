@@ -108,6 +108,22 @@ public class Fornecedor {
 	public void setDt_cadastro_fornecedor(Calendar dt_cadastro_fornecedor) {
 		this.dt_cadastro_fornecedor = dt_cadastro_fornecedor;
 	}
+
+	
+	
+	public Fornecedor() {}
+	
+	public Fornecedor(int id, String cnpj, String nome, String localizacao, String telefone,
+			Calendar dt_cadastro_fornecedor, Collection<Compra> compras) {
+		super();
+		this.id = id;
+		this.cnpj = cnpj;
+		this.nome = nome;
+		this.localizacao = localizacao;
+		this.telefone = telefone;
+		this.dt_cadastro_fornecedor = dt_cadastro_fornecedor;
+		this.compras = compras;
+	}
 	
 	
 

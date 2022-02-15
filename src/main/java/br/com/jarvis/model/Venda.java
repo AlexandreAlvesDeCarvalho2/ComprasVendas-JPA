@@ -35,7 +35,7 @@ public class Venda {
 	@ManyToMany
     @JoinTable(	joinColumns = @JoinColumn(name = "id_vendas"), 
     			inverseJoinColumns = @JoinColumn(name = "id_produtos"), 
-    			name = "itensVendas")
+    			name = "VENDA_PRODUTO")
 	private List<Produto> produtosVenda;
 	
 	
@@ -109,5 +109,23 @@ public class Venda {
 	public void setDataVenda(Calendar dataVenda) {
 		this.dataVenda = dataVenda;
 	}
+	
+	public Venda() {
+		
+	}
+
+	public Venda(int id, List<Produto> produtosVenda, double valorTotal, String formaDePagamento, Calendar dataVenda,
+			Cliente clientes) {
+		super();
+		this.id = id;
+		this.produtosVenda = produtosVenda;
+		this.valorTotal = valorTotal;
+		this.formaDePagamento = formaDePagamento;
+		this.dataVenda = dataVenda;
+		this.clientes = clientes;
+	}
+	
+	
+	
 
 }

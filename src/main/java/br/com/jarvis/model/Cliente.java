@@ -2,6 +2,7 @@ package br.com.jarvis.model;
 
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,7 +43,7 @@ public class Cliente {
 	
 	
     @OneToMany(mappedBy = "clientes")  // sistema registrará "um" cliente com "muitas" compras.
-	private Collection<Venda> vendas;
+	private List<Venda> vendas;
 	
 	
 	
@@ -64,7 +65,7 @@ public class Cliente {
 		return vendas;
 	}
 
-	public void setVendas(Collection<Venda> vendas) {
+	public void setVendas(List<Venda> vendas) {
 		this.vendas = vendas;
 	}
 
@@ -104,6 +105,22 @@ public class Cliente {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	
+	public Cliente() {}
+	
+	public Cliente(int id, String nome, String cpf, String telefone, String email, Calendar dataCadastro,
+			List<Venda> vendas) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.cpf = cpf;
+		this.telefone = telefone;
+		this.email = email;
+		this.dataCadastro = dataCadastro;
+		this.vendas = vendas;
+	}
+	
 	
 	
 	
