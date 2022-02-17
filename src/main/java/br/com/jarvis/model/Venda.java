@@ -8,10 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -22,7 +20,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 
 @Entity
-@Table(name = "TB_VENDAS")
+@Table(name = "tb_vendas")
 public class Venda {
 
 	@Id
@@ -31,12 +29,6 @@ public class Venda {
 	@Column(name = "id_vendas")
 	private int id;
 	
-	// sistema registrará uma venda com um ou vários produtos e um produto em uma ou várias vendas.
-	@ManyToMany
-    @JoinTable(	joinColumns = @JoinColumn(name = "id_vendas"), 
-    			inverseJoinColumns = @JoinColumn(name = "id_produtos"), 
-    			name = "VENDA_PRODUTO")
-	private List<Produto> produtosVenda;
 	
 	
 	@Column(name = "vl_total", length=20, nullable=false)
@@ -56,42 +48,15 @@ public class Venda {
 	@ManyToOne         					 // sistema registrará muitas vendas para um cliente
 	private Cliente clientes;
 	
-	
-	
-	
-	// Getters and Setters 	
+	@OneToMany(mappedBy =  "venda")
+	private List<VendaProduto> produtos;
 
 	public int getId() {
 		return id;
 	}
 
-	public String getFormaDePagamento() {
-		return formaDePagamento;
-	}
-
-	public void setFormaDePagamento(String formaDePagamento) {
-		this.formaDePagamento = formaDePagamento;
-	}
-
-	public Cliente getClientes() {
-		return clientes;
-	}
-
-	public void setClientes(Cliente clientes) {
-		this.clientes = clientes;
-	}
-
 	public void setId(int id) {
 		this.id = id;
-	}
-
-
-	public List<Produto> getProdutosVenda() {
-		return produtosVenda;
-	}
-
-	public void setProdutosVenda(List<Produto> produtosVenda) {
-		this.produtosVenda = produtosVenda;
 	}
 
 	public double getValorTotal() {
@@ -102,6 +67,14 @@ public class Venda {
 		this.valorTotal = valorTotal;
 	}
 
+	public String getFormaDePagamento() {
+		return formaDePagamento;
+	}
+
+	public void setFormaDePagamento(String formaDePagamento) {
+		this.formaDePagamento = formaDePagamento;
+	}
+
 	public Calendar getDataVenda() {
 		return dataVenda;
 	}
@@ -109,21 +82,40 @@ public class Venda {
 	public void setDataVenda(Calendar dataVenda) {
 		this.dataVenda = dataVenda;
 	}
-	
-	public Venda() {
-		
+
+	public Cliente getClientes() {
+		return clientes;
 	}
 
-	public Venda(int id, List<Produto> produtosVenda, double valorTotal, String formaDePagamento, Calendar dataVenda,
-			Cliente clientes) {
+	public void setClientes(Cliente clientes) {
+		this.clientes = clientes;
+	}
+
+	public List<VendaProduto> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(List<VendaProduto> produtos) {
+		this.produtos = produtos;
+	}
+
+	public Venda() {}
+	
+	public Venda(int id, double valorTotal, String formaDePagamento, Calendar dataVenda, Cliente clientes,
+			List<VendaProduto> produtos) {
 		super();
 		this.id = id;
-		this.produtosVenda = produtosVenda;
 		this.valorTotal = valorTotal;
 		this.formaDePagamento = formaDePagamento;
 		this.dataVenda = dataVenda;
 		this.clientes = clientes;
+		this.produtos = produtos;
 	}
+	
+	
+	// Getters and Setters 	
+
+	
 	
 	
 	

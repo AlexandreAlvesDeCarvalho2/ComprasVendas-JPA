@@ -10,10 +10,12 @@
 		<class>br.com.jarvis.model.Fornecedor</class>
 		<class>br.com.jarvis.model.Produto</class>
 		<class>br.com.jarvis.model.Venda</class>
+		<class>br.com.jarvis.model.VendaProduto</class>
+		<class>br.com.jarvis.model.CompraProduto</class>
 		<properties>
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
-			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.hbm2ddl.auto" value="create" />
 			<property name="hibernate.dialect"
 				value="org.hibernate.dialect.Oracle12cDialect" />
 			<property name="javax.persistence.jdbc.driver"

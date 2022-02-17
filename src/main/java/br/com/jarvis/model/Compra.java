@@ -3,15 +3,14 @@ package br.com.jarvis.model;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -20,7 +19,7 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
-@Table(name="TB_COMPRA")
+@Table(name="tb_compras")
 public class Compra {
 	
 	@Id
@@ -28,13 +27,6 @@ public class Compra {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "compra")
 	@Column(name="id_compra")
 	private int id;
-	
-	// sistema registrará uma compra com um ou "muitos" produtos e um produto em uma ou "muitas" compras.
-	@ManyToMany
-    @JoinTable(	joinColumns = @JoinColumn(name = "id_compras"), 
-    			inverseJoinColumns = @JoinColumn(name = "id_produtos"), 
-    			name = "PRODUTO_COMPRA")
-	private List<Produto> produtosCompra;
 	
 	
 	@Column(name="vl_total")
@@ -51,15 +43,17 @@ public class Compra {
 	private Calendar dataCompra;
 	
 	
+	// registrará uma compra com muitos produtos
+	@OneToMany(mappedBy =  "compra")
+	private List<CompraProduto> produtos;
+	
+	
 	// sistema registrará uma ou "muitas" compras para "um" fornecedor.
-	@ManyToOne 
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	private Fornecedor fornecedores;
 
-	
-	
-	
-	
-	
+
+
 	// Getters and Setters
 	
 	public int getId() {
@@ -67,28 +61,8 @@ public class Compra {
 	}
 
 
-	public Fornecedor getFornecedores() {
-		return fornecedores;
-	}
-
-
-	public void setFornecedores(Fornecedor fornecedores) {
-		this.fornecedores = fornecedores;
-	}
-
-
 	public void setId(int id) {
 		this.id = id;
-	}
-
-
-	public List<Produto> getProdutosCompra() {
-		return produtosCompra;
-	}
-
-
-	public void setProdutosCompra(List<Produto> produtosCompra) {
-		this.produtosCompra = produtosCompra;
 	}
 
 
@@ -122,18 +96,40 @@ public class Compra {
 	}
 
 
+	public List<CompraProduto> getProdutos() {
+		return produtos;
+	}
+
+
+	public void setProdutos(List<CompraProduto> produtos) {
+		this.produtos = produtos;
+	}
+
+
+	public Fornecedor getFornecedores() {
+		return fornecedores;
+	}
+
+
+	public void setFornecedores(Fornecedor fornecedores) {
+		this.fornecedores = fornecedores;
+	}
+
 	public Compra() {}
 	
-	public Compra(int id, List<Produto> produtosCompra, double valorTotal, String formaDepagamento, Calendar dataCompra,
+	public Compra(int id, double valorTotal, String formaDepagamento, Calendar dataCompra, List<CompraProduto> produtos,
 			Fornecedor fornecedores) {
 		super();
 		this.id = id;
-		this.produtosCompra = produtosCompra;
 		this.valorTotal = valorTotal;
 		this.formaDepagamento = formaDepagamento;
 		this.dataCompra = dataCompra;
+		this.produtos = produtos;
 		this.fornecedores = fornecedores;
 	}
+
+	
+	
 	
 	
 	

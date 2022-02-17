@@ -7,12 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="TB_PRODUTO")
+@Table(name="tb_produto")
 public class Produto {
 
 	@Id
@@ -23,89 +23,71 @@ public class Produto {
 	
 	@Column(name="nome_produto")
 	private String nome;
-	
-	@Column(name="preco_produto")
-	private double preco;
-	
-	
-	@Column(name="estoque_produto")
-	private int estoque;
-	
-	
-	@ManyToMany(mappedBy = "produtosVenda")    // sistema registrará uma venda com um ou vários produtos
-	private List<Venda> vendas;
-	
 		
-	@ManyToMany(mappedBy = "produtosCompra")	// sistema registrará uma compra com um ou vários produtos
-	private List<Compra> compras;
+	@Column(name="qnt_min")
+	private int qntMin;
+	
+	@OneToMany(mappedBy = "produto")
+	private List<CompraProduto> compras;
+	
+	@OneToMany(mappedBy = "produto")
+	private List<VendaProduto> vendas;
 
-	
-	
-	
-	
-	// Getters and Setter
-	
 	public int getId() {
 		return id;
 	}
-
 
 	public void setId(int id) {
 		this.id = id;
 	}
 
-
 	public String getNome() {
 		return nome;
 	}
-
 
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
 
-
-	public int getEstoque() {
-		return estoque;
+	
+	public int getQntMin() {
+		return qntMin;
 	}
 
-
-	public void setEstoque(int estoque) {
-		this.estoque = estoque;
+	public void setQntMin(int qntMin) {
+		this.qntMin = qntMin;
 	}
 
-
-	public List<Venda> getVendas() {
-		return vendas;
-	}
-
-
-	public void setVendas(List<Venda> vendas) {
-		this.vendas = vendas;
-	}
-
-
-	public List<Compra> getCompras() {
+	public List<CompraProduto> getCompras() {
 		return compras;
 	}
 
-
-	public void setCompras(List<Compra> compras) {
+	public void setCompras(List<CompraProduto> compras) {
 		this.compras = compras;
 	}
 
-	
+	public List<VendaProduto> getVendas() {
+		return vendas;
+	}
+
+	public void setVendas(List<VendaProduto> vendas) {
+		this.vendas = vendas;
+	}
+
 	public Produto() {}
 	
-	public Produto(int id, String nome, double preco, int estoque, List<Venda> vendas, List<Compra> compras) {
+	public Produto(int id, String nome, int qntMin, List<CompraProduto> compras,
+			List<VendaProduto> vendas) {
 		super();
 		this.id = id;
 		this.nome = nome;
-		this.preco = preco;
-		this.estoque = estoque;
-		this.vendas = vendas;
+		this.qntMin = qntMin;
 		this.compras = compras;
+		this.vendas = vendas;
 	}
+		
+	
+	
 	
 	
 	
